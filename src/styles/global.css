@@ -1,0 +1,15 @@
+/* Import Tailwind base, components, and utilities */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Apply Inter font globally, overriding Tailwind's default font stack */
+body {
+  font-family: 'Inter', sans-serif;
+  @apply bg-blue-50 text-gray-800; /* Example: light blue background, dark grey text */
+}
+
+/* You can add custom utility classes here if needed */
+.container-custom {
+  @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+}
