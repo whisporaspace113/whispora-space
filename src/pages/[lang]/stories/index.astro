@@ -1,0 +1,40 @@
+---
+import MainLayout from '../../../layouts/MainLayout.astro';
+import { getCollection } from 'astro:content';
+import StoryCard from '../../../components/cards/StoryCard.astro';
+
+export async function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    // { params: { lang: 'es' } },
+    // { params: { lang: 'fr' } },
+  ];
+}
+
+const { lang } = Astro.params;
+
+// Get all stories for the current language
+const stories = await getCollection('stories', ({ id }) =>
+  id.startsWith(`${lang}/`)
+);
+
+// Sort stories, e.g., by title
+stories.sort((a, b) => a.data.title.localeCompare(b.data.title));
+---
+
+<MainLayout title="Whispora.space - All Stories" description={`Discover all magical stories in ${lang.toUpperCase()}.`}>
+  <section class="py-16 bg-blue-100">
+    <div class="container-custom">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-center text-gray-800 mb-10">All Magical Stories</h1>
+      {stories.length === 0 ? (
+        <p class="text-center text-gray-600 text-xl">No stories available in this language yet. Check back soon!</p>
+      ) : (
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          {stories.map((story) => (
+            <StoryCard story={story} lang={lang} />
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</MainLayout>
