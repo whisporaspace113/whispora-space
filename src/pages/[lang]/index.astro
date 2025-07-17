@@ -3,11 +3,10 @@ import MainLayout from '../../layouts/MainLayout.astro';
 import { getCollection } from 'astro:content';
 import StoryCard from '../../components/cards/StoryCard.astro';
 
-// THIS IS THE REQUIRED FUNCTION:
 export async function getStaticPaths() {
   return [
     { params: { lang: 'en' } },
-    // You should add other languages here when you expand your content, e.g.:
+    // Add other languages as needed
     // { params: { lang: 'es' } },
     // { params: { lang: 'fr' } },
   ];
@@ -19,10 +18,8 @@ const { lang } = Astro.params;
 const allStories = await getCollection('stories', ({ id }) =>
   id.startsWith(`${lang}/`)
 );
-// Note: If your stories don't have a 'date' in frontmatter, this sort might cause issues.
-// For now, it's illustrative. You might remove .sort() if you don't have dates.
 const latestStories = allStories.sort((a, b) => {
-  // Assuming a 'date' field in frontmatter for sorting, if not, adjust or remove
+  // Assuming a 'date' field in frontmatter for sorting. If not, adjust or remove.
   const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
   const dateB = b.data.date ? new Date(b.data.date).getTime() : 0;
   return dateB - dateA;
