@@ -1,7 +1,9 @@
 ---
 interface Props {
   story: {
-    slug: string;
+    // story.slug (from getCollection) includes the language prefix (e.g., 'en/my-first-story')
+    // story.id (from getCollection) also includes the language prefix (e.g., 'en/my-first-story')
+    id: string; // We'll use this to derive the correct slug for the URL
     data: {
       title: string;
       description: string;
@@ -12,8 +14,12 @@ interface Props {
 }
 
 const { story, lang } = Astro.props;
+
+// Calculate the actual slug needed for the URL, by removing the language prefix from story.id
+// Example: If story.id is 'en/my-first-story', this will become 'my-first-story'
+const storySlugForUrl = story.id.split('/').slice(1).join('/');
 ---
-<a href={`/${lang}/stories/${story.slug}`} class="block bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+<a href={`/${lang}/stories/${storySlugForUrl}`} class="block bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
   <img
     src={story.data.image || '/img/default-story-cover.jpg'}
     alt={story.data.title}
