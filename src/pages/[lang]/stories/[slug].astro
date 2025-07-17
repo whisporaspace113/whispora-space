@@ -1,12 +1,14 @@
 ---
 import MainLayout from '../../../layouts/MainLayout.astro';
 import { getCollection } from 'astro:content';
+import Header from '../../../components/global/Header.astro'; // IMPORT HEADER
+import Footer from '../../../components/global/Footer.astro'; // IMPORT FOOTER
 
 export async function getStaticPaths() {
   const stories = await getCollection('stories');
   return stories.map((story) => ({
     params: {
-      lang: story.id.split('/')[0], // Extracts 'en' from 'en/my-first-story'
+      lang: story.id.split('/')[0], // Extracts 'en'
       slug: story.id.split('/').slice(1).join('/'), // Extracts 'my-first-story'
     },
     props: { story },
@@ -18,30 +20,35 @@ const { Content } = await story.render();
 ---
 
 <MainLayout title={story.data.title + " - Whispora.space"} description={story.data.description}>
+  <Header slot="header" /> {/* ADD THIS LINE TO SLOT THE HEADER */}
+
   <article class="container-custom py-16">
     <header class="text-center mb-10">
-      {story.data.image && (
+      <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">{story.data.title}</h1>
+      {story.data.author && <p class="text-lg text-gray-600 italic">By {story.data.author}</p>}
+    </header>
+
+    {story.data.image && (
+      <div class="mb-8 text-center">
         <img
           src={story.data.image}
           alt={story.data.title}
-          class="w-full max-h-96 object-cover rounded-lg shadow-md mb-6 mx-auto"
+          class="w-full max-w-2xl mx-auto h-auto rounded-lg shadow-md object-cover"
+          loading="lazy"
         />
-      )}
-      <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">{story.data.title}</h1>
-      <p class="text-lg text-gray-600 italic">
-        {story.data.description}
-        {story.data.author && <span class="block mt-2 not-italic">By {story.data.author}</span>}
-      </p>
-    </header>
+      </div>
+    )}
 
     <div class="prose prose-lg mx-auto text-gray-700 leading-relaxed space-y-4 md:prose-xl">
-      <Content /> {/* This renders your Markdown content */}
+      <Content />
     </div>
 
     <div class="text-center mt-12">
       <a href={`/${Astro.params.lang}/stories`} class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-blue-700 transition-colors">
-        &larr; Back to All Stories
+        &larr; Back to Stories
       </a>
     </div>
   </article>
+
+  <Footer slot="footer" /> {/* ADD THIS LINE TO SLOT THE FOOTER */}
 </MainLayout>
