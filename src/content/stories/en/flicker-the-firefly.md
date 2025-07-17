@@ -4,6 +4,7 @@ description: "A little firefly named Flicker learns to overcome his fear of the 
 author: "Whisp The Storyteller"
 date: "2025-07-17"
 ---
+![Flicker the firefly flying through a magical forest at night](https://whisporaspace.netlify.app/img/stories/flicker-illustration.png) 
 Once upon a time, nestled in a field of tall green grass, lived a little firefly named Flicker. Flicker was a happy little bug, but he had a secret: Flicker was afraid of the dark.
 Every evening, as the sun began to set and the world turned shades of purple and blue, Flicker would start to shiver. All the other fireflies would excitedly blink their lights, ready to dance and play in the night. But Flicker would hide under a big, green leaf, his own light stubbornly staying off.
 "Oh, how I wish the night wasn't so… dark!" he'd whisper to himself.
