@@ -1,17 +1,13 @@
 ---
+// You can add props here if you want dynamic content in the footer
 ---
-<footer class="bg-gray-800 text-white py-8 mt-12">
-  <div class="container-custom flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-    <div class="mb-4 md:mb-0">
-      <p class="text-lg font-semibold">&copy; {new Date().getFullYear()} Whispora.space. All rights reserved.</p>
-      <p class="text-sm">Magical Stories for Little Dreamers.</p>
-    </div>
-    <nav>
-      <ul class="flex space-x-6 text-sm">
-        <li><a href="/en/about" class="hover:text-blue-300">About Us</a></li>
-        <li><a href="/en/privacy-policy" class="hover:text-blue-300">Privacy Policy</a></li>
-        <li><a href="/en/contact" class="hover:text-blue-300">Contact</a></li>
-      </ul>
-    </nav>
+<footer class="bg-gray-800 text-white py-8 mt-16">
+  <div class="container-custom text-center text-sm">
+    <p>&copy; {new Date().getFullYear()} Whispora.space. All rights reserved.</p>
+    <p class="mt-2">
+      <a href="/privacy" class="text-blue-400 hover:underline">Privacy Policy</a> |
+      <a href="/terms" class="text-blue-400 hover:underline">Terms of Service</a>
+    </p>
+    <p class="mt-2 text-gray-400">Made with ❤️ by Magical Storytellers</p>
   </div>
 </footer>
