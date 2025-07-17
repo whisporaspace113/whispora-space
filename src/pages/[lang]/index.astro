@@ -3,14 +3,13 @@ import MainLayout from '../../layouts/MainLayout.astro';
 import { getCollection } from 'astro:content';
 import StoryCard from '../../components/cards/StoryCard.astro';
 import Header from '../../components/global/Header.astro'; // IMPORT HEADER
-import Footer from '../../components/global/Footer.astro'; // IMPORT FOOTER (Assuming you have one!)
+import Footer from '../../components/global/Footer.astro'; // IMPORT FOOTER
 
 export async function getStaticPaths() {
   return [
     { params: { lang: 'en' } },
     // Add other languages as needed
     // { params: { lang: 'es' } },
-    // { params: { lang: 'fr' } },
   ];
 }
 
@@ -21,7 +20,6 @@ const allStories = await getCollection('stories', ({ id }) =>
   id.startsWith(`${lang}/`)
 );
 const latestStories = allStories.sort((a, b) => {
-  // Assuming a 'date' field in frontmatter for sorting. If not, adjust or remove.
   const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
   const dateB = b.data.date ? new Date(b.data.date).getTime() : 0;
   return dateB - dateA;
@@ -75,7 +73,7 @@ const latestStories = allStories.sort((a, b) => {
     <div class="flex flex-wrap justify-center gap-6">
       <a href={`/${lang}/songs`} class="bg-green-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-green-600 transition-colors">Songs</a>
       <a href={`/${lang}/learn`} class="bg-orange-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-orange-600 transition-colors">Learn</a>
-      <a href={`/${lang}/gallery`} class="bg-pink-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-pink-600 transition-colors">Gallery</a>
+      <a href={`/${lang}/treehouse-adventure`} class="bg-pink-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-pink-600 transition-colors">Adventure</a> {/* NEW LINK FOR INTERACTIVE STORY */}
     </div>
   </section>
 
