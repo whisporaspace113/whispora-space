@@ -1,0 +1,89 @@
+---
+// Any Astro frontmatter here, though not strictly needed for this self-contained component
+---
+<main class="w-full max-w-2xl mx-auto p-4 md:p-8 bg-white/50 rounded-2xl shadow-lg backdrop-blur-sm">
+    <header class="text-center mb-6">
+        <h1 class="text-3xl md:text-4xl font-bold text-amber-600">The Magical Treehouse Adventure</h1>
+        <p class="text-slate-600 mt-2">An interactive story from Whispora.space</p>
+    </header>
+
+    <div class="mb-6">
+        <img id="storyImage" src="https://storage.googleapis.com/gemini-prod-us-west1-423908bb593a/images/3f19a0cd-4b55-4bc7-939e-d3da9f464010.png" alt="An illustration of a young boy looking at a magical treehouse in a forest." class="w-full h-auto rounded-xl shadow-md object-cover">
+    </div>
+
+    <section id="story-container" class="text-center space-y-4">
+        <div id="story-text" class="story-content text-lg md:text-xl leading-relaxed text-slate-700 p-4 rounded-lg flex items-center justify-center">
+            </div>
+        <button id="action-button" class="w-full md:w-auto inline-block px-8 py-4 bg-amber-500 text-white font-bold text-lg rounded-full shadow-lg hover:bg-amber-600 focus:outline-none focus:ring-4 focus:ring-amber-300 transition-all duration-300 ease-in-out transform hover:scale-105">
+            </button>
+    </section>
+</main>
+
+<style>
+    /* Add any specific styles for this component here, if not handled by Tailwind */
+    .story-content {
+        min-height: 150px; /* From your original code */
+    }
+</style>
+
+<script>
+    // All your JavaScript logic for the interactive story goes here
+    document.addEventListener('DOMContentLoaded', function() {
+        const storyTextElement = document.getElementById('story-text');
+        const actionButton = document.getElementById('action-button');
+
+        const storyScenes = [
+            {
+                text: "Meet Leo! He loves to explore, and his favorite place in the world is the wonderful treehouse his Grandpa built in the backyard.",
+                button: "Start the Adventure ✨"
+            },
+            {
+                text: "One sunny afternoon, Leo climbed up with his book and a juicy apple. But as he sat down, he noticed something peculiar. The little round window wasn't showing his backyard anymore... it showed a swirling, misty forest!",
+                button: "Investigate the magic!"
+            },
+            {
+                text: "Leo rubbed his eyes. His toy compass was spinning wildly! Curiosity bubbling, he bravely opened the treehouse door. Instead of grass below, there was a soft, mossy path leading into the enchanted woods.",
+                button: "Step into the forest"
+            },
+            {
+                text: "He stepped out. 'Wow!' The trees had rainbow leaves, and tiny glowing mushrooms lit the path. He followed his compass deeper into the magical forest.",
+                button: "Follow the glowing path"
+            },
+            {
+                text: "Soon, he met a friendly squirrel with a bushy purple tail. 'Hello!' chattered the squirrel. 'The Whispering Oak takes you where you need to go. Follow the sparkling dust to the Wishing Waterfall!'",
+                button: "Find the waterfall"
+            },
+            {
+                text: "Leo found the waterfall, a shimmering curtain of sparkling colors. He closed his eyes tight and made a wish: 'I wish I could always have adventures like this!'",
+                button: "Make a wish..."
+            },
+            {
+                text: "When he opened his eyes, the magical forest was fading. He was standing right outside his treehouse again, back in his own backyard. The adventure hadn't been a dream!",
+                button: "Climb back inside"
+            },
+            {
+                text: "Leo knew his treehouse was truly magical. From that day on, he understood that every time he climbed that rope ladder, a new, wonderful adventure was just waiting to begin.",
+                button: "Read Again 🔁"
+            }
+        ];
+
+        let currentSceneIndex = 0;
+
+        function renderScene() {
+            const scene = storyScenes[currentSceneIndex];
+            storyTextElement.innerHTML = `<p>${scene.text}</p>`;
+            actionButton.textContent = scene.button;
+        }
+
+        actionButton.addEventListener('click', () => {
+            currentSceneIndex++;
+            if (currentSceneIndex >= storyScenes.length) {
+                currentSceneIndex = 0; // Loop back to the beginning
+            }
+            renderScene();
+        });
+
+        // Initial scene render
+        renderScene();
+    });
+</script>
