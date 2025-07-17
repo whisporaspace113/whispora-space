@@ -1,0 +1,31 @@
+---
+interface Props {
+  song: {
+    id: string; // Used to derive the URL slug
+    data: {
+      title: string;
+      artist?: string;
+      audio?: string;
+    };
+  };
+  lang: string;
+}
+
+const { song, lang } = Astro.props;
+
+// Calculate the actual slug needed for the URL, by removing the language prefix from song.id
+const songSlugForUrl = song.id.split('/').slice(1).join('/');
+---
+<a href={`/${lang}/songs/${songSlugForUrl}`} class="block bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden text-center p-6">
+  {song.data.audio && (
+    <div class="mb-4">
+      {/* Placeholder icon for audio. Replace with a real icon or image if desired. */}
+      <svg class="w-16 h-16 mx-auto text-blue-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path>
+      </svg>
+    </div>
+  )}
+  <h3 class="text-xl font-bold text-gray-800 mb-2">{song.data.title}</h3>
+  {song.data.artist && <p class="text-gray-600 text-sm">{song.data.artist}</p>}
+  <span class="mt-4 inline-block text-blue-600 hover:text-blue-800 font-semibold text-sm">Listen & Read &rarr;</span>
+</a>
