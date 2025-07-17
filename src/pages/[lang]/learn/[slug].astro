@@ -1,0 +1,37 @@
+---
+import MainLayout from '../../../layouts/MainLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const learningModules = await getCollection('learning_modules');
+  return learningModules.map((module) => ({
+    params: {
+      lang: module.id.split('/')[0], // Extracts 'en'
+      slug: module.id.split('/').slice(1).join('/'), // Extracts 'first-lesson'
+    },
+    props: { module },
+  }));
+}
+
+const { module } = Astro.props;
+const { Content } = await module.render();
+---
+
+<MainLayout title={module.data.title + " - Learning Hub - Whispora.space"} description={module.data.description}>
+  <article class="container-custom py-16">
+    <header class="text-center mb-10">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">{module.data.title}</h1>
+      {module.data.difficulty && <p class="text-lg text-gray-600 italic">Difficulty: {module.data.difficulty}</p>}
+    </header>
+
+    <div class="prose prose-lg mx-auto text-gray-700 leading-relaxed space-y-4 md:prose-xl">
+      <Content />
+    </div>
+
+    <div class="text-center mt-12">
+      <a href={`/${Astro.params.lang}/learn`} class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-blue-700 transition-colors">
+        &larr; Back to Learning Hub
+      </a>
+    </div>
+  </article>
+</MainLayout>
