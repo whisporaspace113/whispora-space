@@ -1,7 +1,9 @@
 ---
 import MainLayout from '../../../layouts/MainLayout.astro';
 import { getCollection } from 'astro:content';
-import SongCard from '../../../components/cards/SongCard.astro'; // We'll create this next
+import SongCard from '../../../components/cards/SongCard.astro';
+import Header from '../../../components/global/Header.astro'; // IMPORT HEADER
+import Footer from '../../../components/global/Footer.astro'; // IMPORT FOOTER (Assuming you have one!)
 
 export async function getStaticPaths() {
   return [
@@ -18,6 +20,8 @@ const allSongs = await getCollection('songs', ({ id }) =>
 ---
 
 <MainLayout title={`Songs - Whispora.space`} description="A collection of enchanting songs for children.">
+  <Header slot="header" /> {/* ADD THIS LINE TO SLOT THE HEADER */}
+
   <section class="container-custom py-16">
     <h1 class="text-4xl md:text-5xl font-extrabold text-center text-gray-800 mb-12">
       Magical Songs
@@ -39,4 +43,6 @@ const allSongs = await getCollection('songs', ({ id }) =>
       </a>
     </div>
   </section>
+
+  <Footer slot="footer" /> {/* ADD THIS LINE TO SLOT THE FOOTER */}
 </MainLayout>
