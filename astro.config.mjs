@@ -12,15 +12,10 @@ export default defineConfig({
       prefixDefaultLocale: true,
     },
   },
-  experimental: {
-    assets: true // Enable new image/asset optimization if desired
-  },
-  // Add image service configuration if you plan to use Astro's built-in image component
-  // image: {
-  //   service: {
-  //     entrypoint: 'astro/assets/services/squoosh', // or 'sharp' if installed
-  //   },
-  // },
+  // REMOVED: experimental block, as 'assets' is no longer experimental or is handled differently.
+  // If you later want advanced image optimization, you'll install @astrojs/image
+  // and configure it under 'integrations' instead of 'experimental'.
+  
   collections: {
     stories: {
       type: 'content',
