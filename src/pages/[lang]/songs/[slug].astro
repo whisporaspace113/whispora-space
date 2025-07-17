@@ -1,13 +1,15 @@
 ---
 import MainLayout from '../../../layouts/MainLayout.astro';
 import { getCollection } from 'astro:content';
+import Header from '../../../components/global/Header.astro'; // IMPORT HEADER
+import Footer from '../../../components/global/Footer.astro'; // IMPORT FOOTER
 
 export async function getStaticPaths() {
   const songs = await getCollection('songs');
   return songs.map((song) => ({
     params: {
       lang: song.id.split('/')[0], // Extracts 'en'
-      slug: song.id.split('/').slice(1).join('/'), // Extracts 'twinkle-twinkle'
+      slug: song.id.split('/').slice(1).join('/'), // Extracts 'my-first-song'
     },
     props: { song },
   }));
@@ -17,16 +19,16 @@ const { song } = Astro.props;
 const { Content } = await song.render();
 ---
 
-<MainLayout title={song.data.title + " - Song - Whispora.space"} description={`Lyrics and audio for ${song.data.title}`}>
+<MainLayout title={song.data.title + " - Whispora.space"} description={`A magical song by ${song.data.artist || 'Unknown Artist'}.`}>
+  <Header slot="header" /> {/* ADD THIS LINE TO SLOT THE HEADER */}
+
   <article class="container-custom py-16">
     <header class="text-center mb-10">
       <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">{song.data.title}</h1>
       {song.data.artist && <p class="text-lg text-gray-600 italic">By {song.data.artist}</p>}
-      
-      {/* Audio Player (simple HTML5) */}
       {song.data.audio && (
         <div class="mt-6">
-          <audio controls class="w-full max-w-md mx-auto">
+          <audio controls class="w-full max-w-lg mx-auto">
             <source src={song.data.audio} type="audio/mpeg">
             Your browser does not support the audio element.
           </audio>
@@ -34,19 +36,19 @@ const { Content } = await song.render();
       )}
     </header>
 
-    {/* Lyrics or Song Description */}
-    <div class="prose prose-lg mx-auto text-gray-700 leading-relaxed space-y-4 md:prose-xl">
-      {song.data.lyrics ? (
-        <Content /> // If 'lyrics: true', render Markdown as lyrics
-      ) : (
-        <p class="text-center">No lyrics available for this song.</p> // Or render a different template for non-lyric songs
-      )}
-    </div>
-
+    {song.data.lyrics && (
+      <div class="prose prose-lg mx-auto text-gray-700 leading-relaxed space-y-4 md:prose-xl">
+        <h2 class="text-3xl font-bold text-center mb-6">Lyrics</h2>
+        <Content />
+      </div>
+    )}
+    
     <div class="text-center mt-12">
       <a href={`/${Astro.params.lang}/songs`} class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-blue-700 transition-colors">
-        &larr; Back to All Songs
+        &larr; Back to Songs
       </a>
     </div>
   </article>
+
+  <Footer slot="footer" /> {/* ADD THIS LINE TO SLOT THE FOOTER */}
 </MainLayout>
