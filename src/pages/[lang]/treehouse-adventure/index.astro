@@ -1,0 +1,25 @@
+---
+import MainLayout from '../../../layouts/MainLayout.astro';
+import InteractiveStory from '../../../components/InteractiveStory.astro'; // Import your new component
+import Header from '../../../components/global/Header.astro'; // Make sure to import Header
+import Footer from '../../../components/global/Footer.astro'; // Make sure to import Footer
+
+export async function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    // Add other languages here if you plan to translate the story scenes
+  ];
+}
+
+const { lang } = Astro.params;
+---
+
+<MainLayout title="The Magical Treehouse Adventure" description="An interactive story for children on Whispora.space">
+  <Header slot="header" /> {/* Slot your header */}
+  
+  <section class="flex flex-col items-center justify-center py-8 min-h-[calc(100vh-160px)]"> 
+    <InteractiveStory client:load /> {/* Use client:load to ensure the JS runs */}
+  </section>
+
+  <Footer slot="footer" /> {/* Slot your footer */}
+</MainLayout>
