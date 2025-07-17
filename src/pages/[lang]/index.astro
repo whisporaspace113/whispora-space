@@ -1,73 +1,36 @@
 ---
-import MainLayout from '../../layouts/MainLayout.astro';
-import { getCollection } from 'astro:content';
-import StoryCard from '../../components/cards/StoryCard.astro';
+// src/pages/index.astro
+// This page will redirect users from the root URL to the English homepage.
+// You could expand this to a language selection page if preferred.
 
-export async function getStaticPaths() {
-  return [
-    { params: { lang: 'en' } },
-    // Add other languages as needed
-    // { params: { lang: 'es' } },
-    // { params: { lang: 'fr' } },
-  ];
-}
+import { Astro } from 'astro'; // Not strictly necessary for redirect, but good practice
 
-const { lang } = Astro.params;
+// Perform the redirect
+// This will instruct the browser to redirect to /en/
+Astro.redirect('/en/');
 
-// Get the latest 3 stories for the homepage
-const allStories = await getCollection('stories', ({ id }) =>
-  id.startsWith(`${lang}/`)
-);
-const latestStories = allStories.sort((a, b) => b.data.date?.getTime() - a.data.date?.getTime()).slice(0, 3);
+// You can still include a basic HTML structure, though it won't be fully rendered
+// if the redirect happens immediately. This is mostly for fallback or if JS is disabled.
 ---
-
-<MainLayout title="Whispora.space - Magical Stories" description="Engaging children's stories, songs, and learning activities for young minds.">
-  <section class="relative bg-gradient-to-br from-blue-300 to-purple-400 text-white py-20 px-4 md:px-0 text-center overflow-hidden">
-    <div class="absolute inset-0 z-0">
-      <div class="bg-stars absolute inset-0 opacity-20"></div> {/* Placeholder for star background */}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content="0; url=/en/" /> {/* HTML Meta Refresh for immediate redirect */}
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting to Whispora.space</title>
+    <style>
+      body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f0f9ff; color: #333; }
+      .message { text-align: center; padding: 20px; border-radius: 8px; background-color: #ffffff; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+      a { color: #2563eb; text-decoration: none; font-weight: bold; }
+      a:hover { text-decoration: underline; }
+    </style>
+  </head>
+  <body>
+    <div class="message">
+      <h1>Redirecting...</h1>
+      <p>If you are not redirected automatically, <a href="/en/">click here to go to the English site</a>.</p>
     </div>
-    <div class="container-custom relative z-10">
-      <h1 class="text-5xl md:text-6xl font-extrabold mb-4 leading-tight">
-        Welcome to Whispora.space
-      </h1>
-      <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">
-        Where every story is a new adventure, and imagination takes flight!
-      </p>
-      <a href={`/${lang}/stories`} class="inline-block bg-yellow-400 text-purple-700 px-8 py-3 rounded-full text-lg font-bold hover:bg-yellow-300 transition-colors shadow-lg">
-        Explore Stories &rarr;
-      </a>
-    </div>
-  </section>
-
-  <section class="container-custom py-16">
-    <h2 class="text-4xl font-extrabold text-center text-gray-800 mb-10">Latest Magical Adventures</h2>
-    {latestStories.length === 0 ? (
-      <p class="text-center text-gray-600">No stories found in this language yet. Check back soon!</p>
-    ) : (
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {latestStories.map((story) => (
-          <StoryCard story={story} lang={lang} />
-        ))}
-      </div>
-    )}
-    <div class="text-center mt-10">
-      <a href={`/${lang}/stories`} class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-blue-700 transition-colors">
-        View All Stories
-      </a>
-    </div>
-  </section>
-
-  {/* Placeholder for other sections */}
-  <section class="container-custom py-16 text-center">
-    <h2 class="text-3xl font-bold text-gray-800 mb-6">More Magic Awaits!</h2>
-    <p class="text-lg text-gray-700 mb-8">
-      Explore enchanting songs, fun learning activities, and discover the history of our magical realm.
-    </p>
-    <div class="flex flex-wrap justify-center gap-6">
-      <a href={`/${lang}/songs`} class="bg-green-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-green-600 transition-colors">Songs</a>
-      <a href={`/${lang}/learn`} class="bg-orange-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-orange-600 transition-colors">Learn</a>
-      <a href={`/${lang}/gallery`} class="bg-pink-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-pink-600 transition-colors">Gallery</a>
-    </div>
-  </section>
-
-</MainLayout>
+  </body>
+</html>
