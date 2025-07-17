@@ -2,6 +2,8 @@
 import MainLayout from '../../layouts/MainLayout.astro';
 import { getCollection } from 'astro:content';
 import StoryCard from '../../components/cards/StoryCard.astro';
+import Header from '../../components/global/Header.astro'; // IMPORT HEADER
+import Footer from '../../components/global/Footer.astro'; // IMPORT FOOTER (Assuming you have one!)
 
 export async function getStaticPaths() {
   return [
@@ -27,6 +29,8 @@ const latestStories = allStories.sort((a, b) => {
 ---
 
 <MainLayout title="Whispora.space - Magical Stories" description="Engaging children's stories, songs, and learning activities for young minds.">
+  <Header slot="header" /> {/* ADD THIS LINE TO SLOT THE HEADER */}
+
   <section class="relative bg-gradient-to-br from-blue-300 to-purple-400 text-white py-20 px-4 md:px-0 text-center overflow-hidden">
     <div class="absolute inset-0 z-0">
       <div class="bg-stars absolute inset-0 opacity-20"></div> {/* Placeholder for star background */}
@@ -56,7 +60,7 @@ const latestStories = allStories.sort((a, b) => {
       </div>
     )}
     <div class="text-center mt-10">
-      <a href={`/${lang}/stories`} class="inline-block bg-blue-600 text-white px-6 py-3 rounded-full text-md font-semibold hover:bg-blue-700 transition-colors">
+      <a href={`/${lang}/stories`} class="inline-block bg-blue-600 text-white px-6 py-3 rounded-md text-md font-semibold hover:bg-blue-700 transition-colors">
         View All Stories
       </a>
     </div>
@@ -75,4 +79,5 @@ const latestStories = allStories.sort((a, b) => {
     </div>
   </section>
 
+  <Footer slot="footer" /> {/* ADD THIS LINE TO SLOT THE FOOTER */}
 </MainLayout>
