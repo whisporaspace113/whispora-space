@@ -1,13 +1,10 @@
 ---
-// This is your Header.astro file.
-// Assuming your navigation links are simple and hardcoded for now.
-// We can make this dynamic later!
-const { lang } = Astro.params; // Get the current language from the URL
+const { lang } = Astro.params;
 ---
 <header class="bg-gradient-to-r from-blue-600 to-purple-700 text-white py-4 shadow-lg">
   <div class="container-custom flex justify-between items-center">
-    <a href={`/${lang}/`} class="text-2xl font-extrabold hover:text-yellow-300 transition-colors">
-      Whispora.space
+    <a href={`/${lang}/`} class="hover:text-yellow-300 transition-colors">
+      <img src="/img/WHISPORA.PNG" alt="Whispora.space Logo" class="h-10 md:h-12" /> {/* Adjust height as needed */}
     </a>
     <nav>
       <ul class="flex space-x-6">
