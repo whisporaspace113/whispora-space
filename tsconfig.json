@@ -1,5 +1,5 @@
 {
-  "extends": "astro/tsconfig/base",
+  "extends": "astro/tsconfig/recommended", // CHANGE THIS LINE from 'base' to 'recommended'
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "react",
@@ -9,9 +9,8 @@
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"]
     },
-    // Ensure `allowJs` is true if you're mixing JS and TS
     "allowJs": true,
-    "esModuleInterop": true, // Recommended for importing modules
-    "isolatedModules": true // Recommended for Astro
+    "esModuleInterop": true,
+    "isolatedModules": true
   }
 }
