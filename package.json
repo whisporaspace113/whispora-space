@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "npm ci && astro build",  // CHANGE THIS LINE
+    "build": "npm ci && astro build",  
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -17,7 +17,7 @@
   "devDependencies": {
     "@types/node": "^20.14.9"
   },
-  "engines": {             // ADD THIS SECTION IF IT'S MISSING
-    "node": ">=20.0.0"     // SPECIFY NODE VERSION
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
