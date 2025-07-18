@@ -1,17 +1,23 @@
 {
   "name": "whispora-space",
-  "type": "module",
   "version": "0.0.1",
+  "private": true,
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "npm ci && astro build",  // CHANGE THIS LINE
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/tailwind": "^5.1.0",
-    "astro": "^4.10.0",
+    "astro": "^4.11.3",
     "tailwindcss": "^3.4.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.9"
+  },
+  "engines": {             // ADD THIS SECTION IF IT'S MISSING
+    "node": ">=20.0.0"     // SPECIFY NODE VERSION
   }
 }
